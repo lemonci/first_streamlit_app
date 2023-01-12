@@ -40,7 +40,7 @@ try:
   else:
     back_from_function = get_fruityvice_data(fruit_choice)
 # output it the screen as a table
-    st.dataframe(fruityvice_normalized)
+    st.dataframe(back_from_function)
 except URLError as e:
   st.error()
 
