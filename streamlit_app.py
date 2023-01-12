@@ -23,9 +23,11 @@ st.dataframe(fruits_to_show)
 
 # New Section to display fruityvice api response
 st.header("Fruityvice Fruit Advice!")
+info_fruit = st.text_input("What fruit would you like information about?", "Kiwi")
+st.write('The user entered', info_fruit)
 
 import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+info_fruit)
 # st.text(fruityvice_response.json()) # just writes the data to the screen
 
 # take the json version of the response and normalize it 
@@ -42,3 +44,7 @@ my_cur.execute("select * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
 st.header("The fruit load list contains:")
 st.dataframe(my_data_rows)
+
+# All the end user to add  a fruit to the list
+add_my_fruit = st.text_input("What fruit would you like to add?", "jackfruit")
+st.write('The user entered', add_my_fruit)
