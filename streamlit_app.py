@@ -27,7 +27,7 @@ st.dataframe(fruits_to_show)
 # New Section to display fruityvice api response
 st.header("Fruityvice Fruit Advice!")
 try:
-  fruit_choice = st.text_input("What fruit would you like information about?", "Kiwi")
+  fruit_choice = st.text_input("What fruit would you like information about?")
   if not fruit_choice:
     st.error("Please select a fruit to get information.")
   else:
@@ -38,8 +38,6 @@ try:
     st.dataframe(fruityvice_normalized)
 except URLError as e:
   st.error()
-    
-st.write('The user entered', fruit_choice)
 
 # don't run anything past here while we troubleshoot
 st.stop()
