@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+import requests
+import snowflake.connector
+from urllib.error import URLError
 
 st.title('My Mom\'s New Healthy Diner')
 
@@ -26,7 +29,6 @@ st.header("Fruityvice Fruit Advice!")
 info_fruit = st.text_input("What fruit would you like information about?", "Kiwi")
 st.write('The user entered', info_fruit)
 
-import requests
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+info_fruit)
 # st.text(fruityvice_response.json()) # just writes the data to the screen
 
@@ -34,9 +36,8 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+info_frui
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # output it the screen as a table
 st.dataframe(fruityvice_normalized)
-
-# set up Streamlit to work with snowflake
-import snowflake.connector
+# don't run anything past here while we troubleshoot
+st.stop()
 
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 my_cur = my_cnx.cursor()
