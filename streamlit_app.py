@@ -24,6 +24,13 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page.
 st.dataframe(fruits_to_show)
 
+# create the repeatable code block (called a function)
+# take the json version of the response and normalize it
+def get_fruityvice_data(this_fruit_choice):
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
+  
 # New Section to display fruityvice api response
 st.header("Fruityvice Fruit Advice!")
 try:
@@ -31,9 +38,7 @@ try:
   if not fruit_choice:
     st.error("Please select a fruit to get information.")
   else:
-# take the json version of the response and normalize it
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    back_from_function = get_fruityvice_data(fruit_choice)
 # output it the screen as a table
     st.dataframe(fruityvice_normalized)
 except URLError as e:
